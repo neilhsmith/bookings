@@ -1,0 +1,22 @@
+{
+  "printWidth": 100,
+  "tabWidth": 2,
+  "trailingComma": "all",
+
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+
+  "tailwindFunctions": ["clsx", "cn", "cva"],
+  "tailwindStylesheet": "./src/styles/app.css",
+
+  "importOrder": [
+    "dotenv/config",
+    ".\\/\\+types/",
+    "<THIRD_PARTY_MODULES>",
+    "^[@]app\\/core\\/",
+    "^[@]app\\/",
+    "^[@]tests\\/",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
