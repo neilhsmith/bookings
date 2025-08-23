@@ -1,1 +1,2 @@
 - use pnpm
+- run pnpm format:write and pnpm lint after generating to adhere to the project's code style

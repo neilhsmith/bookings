@@ -4,7 +4,11 @@
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
       "WebSearch",
-      "WebFetch(domain:tailwindcss.com)"
+      "WebFetch(domain:tailwindcss.com)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm prisma init:*)",
+      "Bash(pnpm db:migrate:*)",
+      "Bash(pnpm db:seed:*)"
     ],
     "deny": [],
     "ask": []

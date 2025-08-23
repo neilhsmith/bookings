@@ -18,3 +18,8 @@ yarn.lock
 /blob-report/
 /playwright/.cache/
 .tanstack
+
+/generated/prisma
+
+# SQLite database file
+dev.db
