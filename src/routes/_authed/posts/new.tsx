@@ -1,5 +1,5 @@
 import { Link, createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
-import { AlertCircle, ArrowLeft, CheckCircle, Eye, Loader2 } from "lucide-react";
+import { AlertCircle, ArrowLeft, CheckCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@app/core/components/ui/button";
@@ -61,7 +61,6 @@ function NewPostPage() {
   };
 
   const canPublish = title.trim().length > 0;
-  const canSave = title.trim() || content.trim();
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-6">
