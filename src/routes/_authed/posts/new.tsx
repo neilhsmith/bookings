@@ -1,6 +1,7 @@
 import { Link, createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
-import { AlertCircle, ArrowLeft, CheckCircle, Loader2 } from "lucide-react";
+import { AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { Button } from "@app/core/components/ui/button";
 
@@ -20,7 +21,6 @@ function NewPostPage() {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +33,6 @@ function NewPostPage() {
 
     setIsLoading(true);
     setError(null);
-    setSuccessMessage(null);
 
     try {
       const newPost = await createPost({
@@ -43,15 +42,14 @@ function NewPostPage() {
         },
       });
 
-      setSuccessMessage("Post created successfully!");
+      // Show success toast
+      toast.success("Post created successfully!");
 
       // Invalidate posts query to refresh the list
       await router.invalidate();
 
-      // Navigate back to posts list after a brief delay to show success message
-      setTimeout(() => {
-        navigate({ to: `/posts/${newPost.id}` });
-      }, 1000);
+      // Navigate immediately to the new post
+      navigate({ to: `/posts/${newPost.id}` });
     } catch (error) {
       console.error("Failed to create post:", error);
       setError(error instanceof Error ? error.message : "Failed to create post. Please try again.");
@@ -81,14 +79,7 @@ function NewPostPage() {
         </div>
       </div>
 
-      {/* Success/Error Messages */}
-      {successMessage && (
-        <div className="mb-6 flex items-center gap-3 rounded-lg border border-green-200 bg-green-50 p-4">
-          <CheckCircle className="h-5 w-5 text-green-600" />
-          <p className="text-green-800">{successMessage}</p>
-        </div>
-      )}
-
+      {/* Error Messages */}
       {error && (
         <div className="mb-6 flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 p-4">
           <AlertCircle className="h-5 w-5 text-red-600" />

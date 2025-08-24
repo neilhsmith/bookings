@@ -15,6 +15,7 @@ import * as React from "react";
 
 import { DefaultCatchBoundary } from "@app/core/components/default-catch-boundary.js";
 import { NotFound } from "@app/core/components/not-found.js";
+import { Toaster } from "@app/core/components/ui/sonner";
 
 import appCss from "@app/styles/app.css?url";
 
@@ -143,6 +144,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <hr />
         {children}
         <TanStackRouterDevtools position="bottom-right" />
+        <Toaster />
         <Scripts />
       </body>
     </html>
