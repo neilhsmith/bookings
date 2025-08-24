@@ -6,3 +6,4 @@
 - store 'core level' utils in "@app/core/lib"
 - store 'core hooks' in "@app/core/hooks"
 - use feature folders - for example, put the logic, utils, types, and components related to something specific like 'auth' in an "@app/auth" directory
+- install new shadcn components as needed
