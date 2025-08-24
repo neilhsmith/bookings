@@ -1,2 +1,8 @@
 - use pnpm
-- run pnpm format:write and pnpm lint after generating to adhere to the project's code style
+- run pnpm format:write and pnpm lint after generating or importing code to adhere to the project's code style
+- use the cn util from "@app/core/lib/utils"
+- store shadcn components in "@app/core/components/ui"
+- store 'app level' components in "@app/core/components"
+- store 'core level' utils in "@app/core/lib"
+- store 'core hooks' in "@app/core/hooks"
+- use feature folders - for example, put the logic, utils, types, and components related to something specific like 'auth' in an "@app/auth" directory
