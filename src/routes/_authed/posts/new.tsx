@@ -60,11 +60,6 @@ function NewPostPage() {
     }
   };
 
-  const handlePreview = () => {
-    // In a real app, this would open a preview modal or navigate to preview page
-    console.log("Preview post:", { title, content });
-  };
-
   const canPublish = title.trim().length > 0;
   const canSave = title.trim() || content.trim();
 
@@ -84,14 +79,6 @@ function NewPostPage() {
           <p className="mt-1 text-sm text-muted-foreground">
             Share your thoughts and ideas with your audience
           </p>
-        </div>
-
-        {/* Desktop action buttons */}
-        <div className="hidden items-center gap-2 sm:flex">
-          <Button variant="outline" size="sm" onClick={handlePreview} disabled={!canSave}>
-            <Eye className="h-4 w-4" />
-            Preview
-          </Button>
         </div>
       </div>
 
@@ -154,14 +141,6 @@ function NewPostPage() {
               {content.length}/5000
             </span>
           </div>
-        </div>
-
-        {/* Mobile action buttons */}
-        <div className="flex flex-col gap-3 pt-4 sm:hidden">
-          <Button variant="outline" onClick={handlePreview} disabled={!canSave} size="lg">
-            <Eye className="h-4 w-4" />
-            Preview Post
-          </Button>
         </div>
 
         {/* Submit buttons */}
