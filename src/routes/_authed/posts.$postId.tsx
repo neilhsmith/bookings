@@ -6,7 +6,7 @@ import { NotFound } from "@app/core/components/not-found.js";
 import { fetchPost } from "@app/utils/posts.js";
 
 export const Route = createFileRoute("/_authed/posts/$postId")({
-  loader: ({ params: { postId } }) => fetchPost(postId),
+  loader: ({ params: { postId } }) => fetchPost({ data: postId }),
   errorComponent: PostErrorComponent,
   component: PostComponent,
   notFoundComponent: () => {
@@ -31,8 +31,10 @@ function PostComponent() {
         )}
       </div>
       <div className="prose max-w-none">
-        {post.content.split('\n').map((paragraph, index) => (
-          <p key={index} className="mb-4">{paragraph}</p>
+        {post.content.split("\n").map((paragraph, index) => (
+          <p key={index} className="mb-4">
+            {paragraph}
+          </p>
         ))}
       </div>
     </div>

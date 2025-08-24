@@ -1,14 +1,15 @@
+import { getAuth } from "@clerk/tanstack-react-start/server";
+import type { Post } from "@prisma/client";
 import { notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { getAuth } from "@clerk/tanstack-react-start/server";
 import { getWebRequest } from "@tanstack/react-start/server";
+
 import { db } from "../lib/db.js";
-import type { Post } from "@prisma/client";
 
 export const fetchPosts = createServerFn({ method: "GET" }).handler(async () => {
   const webRequest = getWebRequest();
   if (!webRequest) throw new Error("No request found");
-  
+
   const { userId } = await getAuth(webRequest);
   if (!userId) throw new Error("Unauthorized");
 
@@ -16,7 +17,7 @@ export const fetchPosts = createServerFn({ method: "GET" }).handler(async () => 
 
   const posts = await db.post.findMany({
     where: { userId },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 
   return posts;
@@ -27,16 +28,16 @@ export const fetchPost = createServerFn({ method: "GET" })
   .handler(async ({ data }) => {
     const webRequest = getWebRequest();
     if (!webRequest) throw new Error("No request found");
-    
+
     const { userId } = await getAuth(webRequest);
     if (!userId) throw new Error("Unauthorized");
 
     console.info(`Fetching post with id ${data} for user ${userId}...`);
 
     const post = await db.post.findFirst({
-      where: { 
+      where: {
         id: data,
-        userId
+        userId,
       },
     });
 
@@ -52,15 +53,17 @@ export const createPost = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const webRequest = getWebRequest();
     if (!webRequest) throw new Error("No request found");
-    
+
     const { userId } = await getAuth(webRequest);
     if (!userId) throw new Error("Unauthorized");
 
     console.info(`Creating post for user ${userId}...`);
+    console.info("Data received:", data);
 
     const post = await db.post.create({
       data: {
-        ...data,
+        title: data.title,
+        content: data.content,
         userId,
       },
     });
@@ -73,16 +76,16 @@ export const updatePost = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const webRequest = getWebRequest();
     if (!webRequest) throw new Error("No request found");
-    
+
     const { userId } = await getAuth(webRequest);
     if (!userId) throw new Error("Unauthorized");
 
     console.info(`Updating post ${data.id} for user ${userId}...`);
 
     const post = await db.post.updateMany({
-      where: { 
+      where: {
         id: data.id,
-        userId
+        userId,
       },
       data: {
         title: data.title,
@@ -102,16 +105,16 @@ export const deletePost = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const webRequest = getWebRequest();
     if (!webRequest) throw new Error("No request found");
-    
+
     const { userId } = await getAuth(webRequest);
     if (!userId) throw new Error("Unauthorized");
 
     console.info(`Deleting post ${data} for user ${userId}...`);
 
     const result = await db.post.deleteMany({
-      where: { 
+      where: {
         id: data,
-        userId
+        userId,
       },
     });
 

@@ -8,7 +8,10 @@
       "Bash(pnpm add:*)",
       "Bash(pnpm prisma init:*)",
       "Bash(pnpm db:migrate:*)",
-      "Bash(pnpm db:seed:*)"
+      "Bash(pnpm db:seed:*)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(pnpm format:write:*)",
+      "Bash(pnpm lint:*)"
     ],
     "deny": [],
     "ask": []

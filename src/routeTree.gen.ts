@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthedProfileRouteImport } from './routes/_authed/profile'
 import { Route as AuthedPostsRouteImport } from './routes/_authed/posts'
 import { Route as AuthedPostsIndexRouteImport } from './routes/_authed/posts.index'
+import { Route as AuthedPostsNewRouteImport } from './routes/_authed/posts/new'
 import { Route as AuthedPostsPostIdRouteImport } from './routes/_authed/posts.$postId'
 
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
@@ -46,6 +47,11 @@ const AuthedPostsIndexRoute = AuthedPostsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthedPostsRoute,
 } as any)
+const AuthedPostsNewRoute = AuthedPostsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AuthedPostsRoute,
+} as any)
 const AuthedPostsPostIdRoute = AuthedPostsPostIdRouteImport.update({
   id: '/$postId',
   path: '/$postId',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/posts': typeof AuthedPostsRouteWithChildren
   '/profile': typeof AuthedProfileRoute
   '/posts/$postId': typeof AuthedPostsPostIdRoute
+  '/posts/new': typeof AuthedPostsNewRoute
   '/posts/': typeof AuthedPostsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -65,6 +72,7 @@ export interface FileRoutesByTo {
   '/unauthorized': typeof UnauthorizedRoute
   '/profile': typeof AuthedProfileRoute
   '/posts/$postId': typeof AuthedPostsPostIdRoute
+  '/posts/new': typeof AuthedPostsNewRoute
   '/posts': typeof AuthedPostsIndexRoute
 }
 export interface FileRoutesById {
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   '/_authed/posts': typeof AuthedPostsRouteWithChildren
   '/_authed/profile': typeof AuthedProfileRoute
   '/_authed/posts/$postId': typeof AuthedPostsPostIdRoute
+  '/_authed/posts/new': typeof AuthedPostsNewRoute
   '/_authed/posts/': typeof AuthedPostsIndexRoute
 }
 export interface FileRouteTypes {
@@ -85,9 +94,16 @@ export interface FileRouteTypes {
     | '/posts'
     | '/profile'
     | '/posts/$postId'
+    | '/posts/new'
     | '/posts/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/unauthorized' | '/profile' | '/posts/$postId' | '/posts'
+  to:
+    | '/'
+    | '/unauthorized'
+    | '/profile'
+    | '/posts/$postId'
+    | '/posts/new'
+    | '/posts'
   id:
     | '__root__'
     | '/'
@@ -96,6 +112,7 @@ export interface FileRouteTypes {
     | '/_authed/posts'
     | '/_authed/profile'
     | '/_authed/posts/$postId'
+    | '/_authed/posts/new'
     | '/_authed/posts/'
   fileRoutesById: FileRoutesById
 }
@@ -149,6 +166,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedPostsIndexRouteImport
       parentRoute: typeof AuthedPostsRoute
     }
+    '/_authed/posts/new': {
+      id: '/_authed/posts/new'
+      path: '/new'
+      fullPath: '/posts/new'
+      preLoaderRoute: typeof AuthedPostsNewRouteImport
+      parentRoute: typeof AuthedPostsRoute
+    }
     '/_authed/posts/$postId': {
       id: '/_authed/posts/$postId'
       path: '/$postId'
@@ -161,11 +185,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthedPostsRouteChildren {
   AuthedPostsPostIdRoute: typeof AuthedPostsPostIdRoute
+  AuthedPostsNewRoute: typeof AuthedPostsNewRoute
   AuthedPostsIndexRoute: typeof AuthedPostsIndexRoute
 }
 
 const AuthedPostsRouteChildren: AuthedPostsRouteChildren = {
   AuthedPostsPostIdRoute: AuthedPostsPostIdRoute,
+  AuthedPostsNewRoute: AuthedPostsNewRoute,
   AuthedPostsIndexRoute: AuthedPostsIndexRoute,
 }
 
